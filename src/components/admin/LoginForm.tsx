@@ -7,10 +7,15 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
+// Credenciales de demo para la evaluación de la prueba técnica.
+// Deben coincidir con el usuario creado en Supabase Auth.
+const DEMO_EMAIL = "admin@munozsolutions.mx";
+const DEMO_PASSWORD = "nsFmWdB1JaWwp0Ex";
+
 /** Formulario de acceso al panel de administración (Supabase Auth). */
 export function LoginForm() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState(DEMO_EMAIL);
+  const [password, setPassword] = useState(DEMO_PASSWORD);
   const [loading, setLoading] = useState(false);
 
   async function onSubmit(e: React.FormEvent) {
@@ -66,6 +71,17 @@ export function LoginForm() {
           {loading ? "Entrando..." : "Iniciar sesión"}
         </Button>
       </form>
+
+      <div className="mt-6 rounded-md border border-dashed border-border bg-muted/40 p-3 text-xs text-muted-foreground">
+        <p className="font-semibold text-foreground">Credenciales de demo (evaluación)</p>
+        <p className="mt-1">
+          Email: <span className="font-mono">{DEMO_EMAIL}</span>
+        </p>
+        <p>
+          Contraseña: <span className="font-mono">{DEMO_PASSWORD}</span>
+        </p>
+        <p className="mt-2">Los campos ya vienen precargados: solo presiona “Iniciar sesión”.</p>
+      </div>
     </div>
   );
 }
