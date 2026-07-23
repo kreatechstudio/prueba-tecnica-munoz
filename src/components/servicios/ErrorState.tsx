@@ -14,7 +14,7 @@ export function ErrorState({ message, onRetry }: ErrorStateProps) {
       className="mx-auto flex max-w-md flex-col items-center rounded-lg border-2 border-error/50 bg-error/5 px-6 py-10 text-center"
     >
       <AlertTriangle className="mb-4 size-12 text-error" aria-hidden="true" />
-      <h2 className="text-xl font-bold text-foreground">Error al cargar los servicios</h2>
+      <h2 className="text-xl font-bold text-foreground">Error al cargar los productos</h2>
       <p className="mt-2 text-sm text-muted-foreground">
         {message ?? "Verifica tu conexión o intenta de nuevo en unos momentos."}
       </p>

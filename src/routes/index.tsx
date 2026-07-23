@@ -71,11 +71,11 @@ function Index() {
         <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16">
           <motion.div variants={fadeIn} initial="hidden" animate="visible">
             <h1 className="max-w-2xl text-3xl font-bold tracking-tight sm:text-4xl">
-              Catálogo de servicios de seguridad electrónica
+              Catálogo de productos
             </h1>
             <p className="mt-3 max-w-xl text-navy-foreground/80">
-              CCTV, control de acceso, alarmas residenciales y mantenimiento. Explora nuestros
-              servicios y solicita una consulta sin compromiso.
+              Explora nuestra selección de ropa, joyería y electrónica. Encuentra lo que buscas y
+              solicita información sin compromiso.
             </p>
             <div className="mt-6 max-w-md">
               <SearchBar value={search} onChange={setSearch} />

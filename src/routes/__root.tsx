@@ -78,18 +78,17 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Catálogo de Servicios — Muñoz Solutions" },
+      { title: "Catálogo de Productos — Muñoz Solutions" },
       {
         name: "description",
         content:
-          "Catálogo de servicios de seguridad electrónica de Muñoz Solutions: CCTV, control de acceso, alarmas residenciales y soporte.",
+          "Catálogo de productos de Muñoz Solutions: ropa, joyería y electrónica. Explora y solicita información.",
       },
       { name: "author", content: "Muñoz Solutions" },
-      { property: "og:title", content: "Catálogo de Servicios — Muñoz Solutions" },
+      { property: "og:title", content: "Catálogo de Productos — Muñoz Solutions" },
       {
         property: "og:description",
-        content:
-          "Catálogo de servicios de seguridad electrónica: CCTV, control de acceso, alarmas y soporte.",
+        content: "Catálogo de productos: ropa, joyería y electrónica.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

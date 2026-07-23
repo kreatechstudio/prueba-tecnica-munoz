@@ -60,7 +60,7 @@ export function CategoryFilter({
       </ul>
 
       <p className="mt-4 border-t border-border pt-3 text-xs text-muted-foreground">
-        {totalResultados} {totalResultados === 1 ? "servicio encontrado" : "servicios encontrados"}
+        {totalResultados} {totalResultados === 1 ? "producto encontrado" : "productos encontrados"}
       </p>
     </aside>
   );

@@ -117,7 +117,7 @@ export function ServiceModal({ servicio, onClose }: ServiceModalProps) {
               </Badge>
               <DialogTitle className="text-2xl text-navy">{servicio.nombre}</DialogTitle>
               <DialogDescription className="sr-only">
-                Detalle del servicio y formulario de consulta
+                Detalle del producto y formulario de consulta
               </DialogDescription>
             </DialogHeader>
 

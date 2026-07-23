@@ -1,4 +1,4 @@
-import type { ConsultaInput, FakeStoreProduct, Servicio } from "@/types";
+import type { Consulta, ConsultaInput, FakeStoreProduct, Servicio } from "@/types";
 import { mapProductosAServicios } from "@/utils/mapService";
 import { isSupabaseConfigured, supabase } from "./supabase";
 
@@ -44,4 +44,26 @@ export async function crearConsulta(data: ConsultaInput) {
   if (error) {
     throw new Error(`Error al guardar la consulta: ${error.message}`);
   }
+}
+
+/**
+ * Lista las consultas registradas. Solo funciona para usuarios autenticados
+ * (la política RLS de SELECT está restringida al admin); un visitante anónimo
+ * recibe una lista vacía.
+ */
+export async function listarConsultas(): Promise<Consulta[]> {
+  if (!isSupabaseConfigured || !supabase) {
+    throw new Error("Supabase no está configurado.");
+  }
+
+  const { data, error } = await supabase
+    .from("consultas")
+    .select("*")
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    throw new Error(`Error al cargar las consultas: ${error.message}`);
+  }
+
+  return (data ?? []) as Consulta[];
 }

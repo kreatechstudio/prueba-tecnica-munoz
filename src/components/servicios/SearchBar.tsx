@@ -19,8 +19,8 @@ export function SearchBar({ value, onChange, placeholder }: SearchBarProps) {
         type="search"
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        placeholder={placeholder ?? "Buscar servicios..."}
-        aria-label="Buscar servicios por nombre o descripción"
+        placeholder={placeholder ?? "Buscar productos..."}
+        aria-label="Buscar productos por nombre o descripción"
         className="pl-9 pr-9 [&::-webkit-search-cancel-button]:hidden"
       />
       {value && (

@@ -1,19 +1,19 @@
 import type { FakeStoreProduct, Servicio } from "@/types";
 
 /**
- * Mapeo estratégico Fake Store → categorías de seguridad de Muñoz Solutions.
- * Convierte un dataset de e-commerce genérico en un catálogo de servicios
- * con contexto comercial real para el cliente.
+ * Traducción de las categorías reales de Fake Store al español.
+ * Se respeta lo que la API realmente devuelve (ropa, joyería, electrónica)
+ * en lugar de reetiquetarlo como otra cosa.
  */
 export const categoriaMap: Record<string, string> = {
-  electronics: "Sistemas CCTV",
-  jewelery: "Control de Acceso",
-  "men's clothing": "Alarmas Residenciales",
-  "women's clothing": "Mantenimiento y Soporte",
+  electronics: "Electrónica",
+  jewelery: "Joyería",
+  "men's clothing": "Ropa de hombre",
+  "women's clothing": "Ropa de mujer",
 };
 
 /** Categoría de fallback cuando Fake Store devuelve una categoría desconocida. */
-const CATEGORIA_DEFAULT = "Servicios Generales";
+const CATEGORIA_DEFAULT = "Otros";
 
 export function mapCategoria(categoriaFakeStore: string): string {
   return categoriaMap[categoriaFakeStore] ?? CATEGORIA_DEFAULT;
