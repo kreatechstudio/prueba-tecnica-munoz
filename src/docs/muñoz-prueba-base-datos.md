@@ -68,12 +68,12 @@ VITE_SUPABASE_ANON_KEY=eyJhbGc...tu_anon_key_aqui
 ## CLIENTE SUPABASE (lib/supabase.ts)
 
 ```typescript
-import { createClient } from '@supabase/supabase-js'
+import { createClient } from "@supabase/supabase-js";
 
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey)
+export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 ```
 
 ---
@@ -81,27 +81,24 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey)
 ## FUNCIÓN DE INSERT (lib/api.ts)
 
 ```typescript
-import { supabase } from './supabase'
+import { supabase } from "./supabase";
 
 interface ConsultaInput {
-  email: string
-  phone?: string
-  servicio_id: number
-  servicio_nombre: string
-  notas?: string
+  email: string;
+  phone?: string;
+  servicio_id: number;
+  servicio_nombre: string;
+  notas?: string;
 }
 
 export async function crearConsulta(data: ConsultaInput) {
-  const { data: result, error } = await supabase
-    .from('consultas')
-    .insert([data])
-    .select()
+  const { data: result, error } = await supabase.from("consultas").insert([data]).select();
 
   if (error) {
-    throw new Error(`Error al guardar consulta: ${error.message}`)
+    throw new Error(`Error al guardar consulta: ${error.message}`);
   }
 
-  return result
+  return result;
 }
 ```
 
@@ -113,17 +110,17 @@ Reglas mínimas antes de hacer INSERT:
 
 ```typescript
 function validarConsulta(email: string, phone: string): string | null {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-  
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
   if (!email || !emailRegex.test(email)) {
-    return 'Ingresa un email válido'
+    return "Ingresa un email válido";
   }
-  
+
   if (phone && phone.length < 10) {
-    return 'El teléfono debe tener al menos 10 dígitos'
+    return "El teléfono debe tener al menos 10 dígitos";
   }
-  
-  return null // sin errores
+
+  return null; // sin errores
 }
 ```
 
@@ -152,7 +149,7 @@ GROUP BY servicio_nombre
 ORDER BY total_consultas DESC;
 
 -- Consultas de esta semana
-SELECT * FROM consultas 
+SELECT * FROM consultas
 WHERE created_at >= NOW() - INTERVAL '7 days'
 ORDER BY created_at DESC;
 ```
@@ -174,4 +171,5 @@ Esto es justo el tipo de dato que después se puede vender como "propuesta real"
 ## SIGUIENTE PASO
 
 Generamos:
+
 - [ ] prompt-base.md (instrucciones completas para Claude Code / desarrollo)

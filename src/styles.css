@@ -59,29 +59,51 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+
+  /* Tokens de marca Muñoz Solutions */
+  --color-navy: var(--navy);
+  --color-navy-foreground: var(--navy-foreground);
+  --color-orange: var(--orange);
+  --color-orange-foreground: var(--orange-foreground);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-error: var(--error);
+  --color-error-foreground: var(--error-foreground);
+
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 }
 
 :root {
   --radius: 0.625rem;
   --background: oklch(1 0 0);
-  --foreground: oklch(0.129 0.042 264.695);
+  --foreground: oklch(0.27 0.006 220); /* #2D3436 neutral-dark */
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.129 0.042 264.695);
+  --card-foreground: oklch(0.27 0.006 220);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.129 0.042 264.695);
-  --primary: oklch(0.208 0.042 265.755);
-  --primary-foreground: oklch(0.984 0.003 247.858);
+  --popover-foreground: oklch(0.27 0.006 220);
+  --primary: oklch(0.55 0.221 20.5); /* #DC143C rojo corporativo */
+  --primary-foreground: oklch(0.985 0 0);
   --secondary: oklch(0.968 0.007 247.896);
-  --secondary-foreground: oklch(0.208 0.042 265.755);
-  --muted: oklch(0.968 0.007 247.896);
-  --muted-foreground: oklch(0.554 0.046 257.417);
+  --secondary-foreground: oklch(0.34 0.055 248);
+  --muted: oklch(0.97 0.003 220); /* ~ #ECF0F1 neutral-light */
+  --muted-foreground: oklch(0.55 0.02 220);
   --accent: oklch(0.968 0.007 247.896);
-  --accent-foreground: oklch(0.208 0.042 265.755);
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.984 0.003 247.858);
-  --border: oklch(0.929 0.013 255.508);
-  --input: oklch(0.929 0.013 255.508);
-  --ring: oklch(0.704 0.04 256.788);
+  --accent-foreground: oklch(0.34 0.055 248);
+  --destructive: oklch(0.63 0.2 27); /* #E74C3C */
+  --destructive-foreground: oklch(0.985 0 0);
+  --border: oklch(0.92 0.004 220);
+  --input: oklch(0.92 0.004 220);
+  --ring: oklch(0.55 0.221 20.5);
+
+  /* Marca Muñoz Solutions */
+  --navy: oklch(0.34 0.055 248); /* #1A3A52 azul marino */
+  --navy-foreground: oklch(0.985 0 0);
+  --orange: oklch(0.76 0.15 66); /* #F39C12 naranja */
+  --orange-foreground: oklch(0.27 0.006 220);
+  --success: oklch(0.68 0.16 152); /* #27AE60 verde */
+  --success-foreground: oklch(0.985 0 0);
+  --error: oklch(0.63 0.2 27); /* #E74C3C rojo error */
+  --error-foreground: oklch(0.985 0 0);
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
@@ -130,6 +152,15 @@
   --sidebar-accent-foreground: oklch(0.984 0.003 247.858);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.551 0.027 264.364);
+
+  --navy: oklch(0.44 0.06 248);
+  --navy-foreground: oklch(0.985 0 0);
+  --orange: oklch(0.76 0.15 66);
+  --orange-foreground: oklch(0.2 0.006 220);
+  --success: oklch(0.68 0.16 152);
+  --success-foreground: oklch(0.985 0 0);
+  --error: oklch(0.63 0.2 27);
+  --error-foreground: oklch(0.985 0 0);
 }
 
 @layer base {

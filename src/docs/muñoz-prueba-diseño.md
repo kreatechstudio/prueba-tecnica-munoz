@@ -3,7 +3,7 @@
 **Paleta:** Identidad Muñoz Solutions  
 **Tema:** Profesional B2B  
 **Animaciones:** Framer Motion  
-**Responsividad:** Mobile-first  
+**Responsividad:** Mobile-first
 
 ---
 
@@ -12,15 +12,15 @@
 Extraída de Muñoz Solutions branding:
 
 ```css
---color-primary: #DC143C;      /* Rojo corporativo — CTA, highlights */
---color-secondary: #1A3A52;    /* Azul marino — backgrounds, headings */
---color-accent: #F39C12;       /* Naranja cálido — estados activos, hover */
---color-neutral-dark: #2D3436; /* Gris oscuro — texto principal */
---color-neutral-light: #ECF0F1; /* Gris muy claro — backgrounds, borders */
---color-white: #FFFFFF;         /* Blanco — cards, modales */
---color-success: #27AE60;       /* Verde — confirmación */
---color-error: #E74C3C;         /* Rojo oscuro — errores */
---color-muted: #95A5A6;        /* Gris — texto secundario */
+--color-primary: #dc143c; /* Rojo corporativo — CTA, highlights */
+--color-secondary: #1a3a52; /* Azul marino — backgrounds, headings */
+--color-accent: #f39c12; /* Naranja cálido — estados activos, hover */
+--color-neutral-dark: #2d3436; /* Gris oscuro — texto principal */
+--color-neutral-light: #ecf0f1; /* Gris muy claro — backgrounds, borders */
+--color-white: #ffffff; /* Blanco — cards, modales */
+--color-success: #27ae60; /* Verde — confirmación */
+--color-error: #e74c3c; /* Rojo oscuro — errores */
+--color-muted: #95a5a6; /* Gris — texto secundario */
 ```
 
 ---
@@ -28,7 +28,7 @@ Extraída de Muñoz Solutions branding:
 ## TIPOGRAFÍA
 
 ```
-Familia principal: "Inter" o "Poppins" 
+Familia principal: "Inter" o "Poppins"
   → Descargar via Google Fonts
   → Weights: 400 (regular), 600 (semibold), 700 (bold)
 
@@ -118,17 +118,19 @@ Small: 0.875rem (14px) — 400 regular
 ```
 
 **Estilos:**
+
 - Fondo: blanco
 - Border: 1px solid #ECF0F1
 - Radius: 0.5rem
 - Shadow: 0 2px 8px rgba(0,0,0,0.08)
-- Hover: 
+- Hover:
   - Scale: 1.05
   - Shadow: 0 8px 16px rgba(0,0,0,0.12)
   - Border-color: #DC143C
   - Transición: 0.3s ease
 
 **CTA Button:**
+
 - Fondo: #1A3A52 (azul marino)
 - Color texto: blanco
 - Hover: Fondo #DC143C (rojo)
@@ -176,6 +178,7 @@ Small: 0.875rem (14px) — 400 regular
 ```
 
 **Estilos Modal:**
+
 - Backdrop: rgba(0,0,0,0.5)
 - Card: blanco, radius 0.75rem
 - Max-width: 600px
@@ -184,6 +187,7 @@ Small: 0.875rem (14px) — 400 regular
 - Animación salida: slideOut + fade
 
 **Inputs:**
+
 - Border: 1px solid #ECF0F1
 - Radius: 0.375rem
 - Padding: 0.75rem 1rem
@@ -206,10 +210,16 @@ Small: 0.875rem (14px) — 400 regular
 ```
 
 **Animación Pulse:**
+
 ```css
 @keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.5; }
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
 }
 animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 ```
@@ -293,11 +303,11 @@ transition={{ duration: 0.2 }}
 
 ## RESPONSIVE BREAKPOINTS
 
-| Breakpoint | Width | Layout |
-|-----------|-------|--------|
-| Mobile    | < 640px | 1 col, sidebar collapse |
-| Tablet    | 640px - 1024px | 2 cols |
-| Desktop   | > 1024px | 3 cols |
+| Breakpoint | Width          | Layout                  |
+| ---------- | -------------- | ----------------------- |
+| Mobile     | < 640px        | 1 col, sidebar collapse |
+| Tablet     | 640px - 1024px | 2 cols                  |
+| Desktop    | > 1024px       | 3 cols                  |
 
 ```css
 /* Mobile-first approach */
@@ -347,5 +357,6 @@ Estilo: Clean, minimalista, profesional, con una toque de color corporativo.
 ## SIGUIENTE PASO
 
 Generamos:
+
 - [ ] base-datos.md (schema SQL)
 - [ ] prompt-base.md (instrucciones React)

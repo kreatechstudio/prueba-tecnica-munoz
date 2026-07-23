@@ -1,11 +1,12 @@
 # ALCANCE — Prueba Técnica Frontend Developer
+
 ## Muñoz Solutions × KreaTech Studio
 
 **Proyecto:** Catálogo de Servicios — Muñoz Solutions  
 **Responsable:** Carlos López  
 **Timeline:** 1 día (22-24 julio 2026)  
 **Plazo original:** 3 días  
-**Fecha entrega:** 24/07/2026  
+**Fecha entrega:** 24/07/2026
 
 ---
 
@@ -19,21 +20,22 @@ Esta prueba técnica sirve como **prototipo funcional** que después pueden adop
 
 ## REQUISITOS MÍNIMOS (exactos del brief)
 
-| Req | Descripción | Status |
-|-----|-------------|--------|
-| **REQ-01** | Listar datos obtenidos de API pública | ✅ Fake Store API (mapeada como servicios) |
-| **REQ-02** | Buscador y filtros simples | ✅ Buscar por nombre/descripción + filtrar por categoría |
-| **REQ-03** | Manejo de estados en peticiones API | ✅ Loading, error, success states |
-| **REQ-04** | Clic en elemento → más información | ✅ Modal con detalles + botón consulta |
-| **REQ-05** | Stack: React/TypeScript/Tailwind | ✅ Confirmado |
-| **REQ-06** | UI/UX a criterio | ✅ Muñoz Solutions paleta + Framer Motion |
-| **REQ-07** | GitHub público + README | ✅ Documentación de decisiones técnicas |
+| Req        | Descripción                           | Status                                                   |
+| ---------- | ------------------------------------- | -------------------------------------------------------- |
+| **REQ-01** | Listar datos obtenidos de API pública | ✅ Fake Store API (mapeada como servicios)               |
+| **REQ-02** | Buscador y filtros simples            | ✅ Buscar por nombre/descripción + filtrar por categoría |
+| **REQ-03** | Manejo de estados en peticiones API   | ✅ Loading, error, success states                        |
+| **REQ-04** | Clic en elemento → más información    | ✅ Modal con detalles + botón consulta                   |
+| **REQ-05** | Stack: React/TypeScript/Tailwind      | ✅ Confirmado                                            |
+| **REQ-06** | UI/UX a criterio                      | ✅ Muñoz Solutions paleta + Framer Motion                |
+| **REQ-07** | GitHub público + README               | ✅ Documentación de decisiones técnicas                  |
 
 ---
 
 ## ALCANCE INCLUIDO
 
 ### Frontend
+
 - ✅ Listado de servicios (Fake Store mapeada)
 - ✅ Buscador por nombre/descripción
 - ✅ Filtros por categoría
@@ -46,11 +48,13 @@ Esta prueba técnica sirve como **prototipo funcional** que después pueden adop
 - ✅ Accesibilidad básica (alt text, ARIA labels)
 
 ### Backend (Supabase)
+
 - ✅ Tabla `consultas` para guardar registros
 - ✅ Edge Function para recibir POST del form
 - ✅ Trigger para email de confirmación (opcional, nice-to-have)
 
 ### Entrega
+
 - ✅ Repositorio GitHub público
 - ✅ README con instrucciones de setup
 - ✅ Documentación de decisiones técnicas (por qué Fake Store, por qué esa tabla, etc.)
@@ -77,11 +81,13 @@ Esta prueba técnica sirve como **prototipo funcional** que después pueden adop
 **Elegimos:** Fake Store API
 
 **Por qué:**
+
 - JSONPlaceholder: posts/usuarios/comments — genérico, sin contexto comercial
 - REST Countries: geográfico — no aplica a seguridad
 - **Fake Store:** productos con categoría, precio, descripción, imagen — **mapeable directamente a servicios de Muñoz**
 
 **Mapeo:**
+
 ```
 Fake Store "Electronics" → "Sistemas CCTV"
 Fake Store "Jewelery" → "Control de Acceso"
@@ -107,6 +113,7 @@ Fake Store "rating" → "Disponibilidad/Calificación"
 ### 3. Manejo de Estados (REQ-03)
 
 Usamos **TanStack Query (React Query)** para manejar:
+
 - `isLoading` → skeleton loader
 - `isError` → error message
 - `data` → lista de servicios
@@ -132,6 +139,7 @@ CREATE TABLE consultas (
 ```
 
 **Por qué:**
+
 - Captura datos útiles del prospecto
 - Muñoz Solutions ve: "Cliente consultó por cámaras CCTV ayer"
 - Después se conecta a CRM/WhatsApp bot
@@ -243,6 +251,7 @@ HORA 5: Polish + Docs
 ## SIGUIENTE PASO
 
 Generamos:
+
 - [ ] diseño.md (paleta, componentes visuales)
 - [ ] base-datos.md (schema Supabase + queries)
 - [ ] prompt-base.md (para arrancar desarrollo)
