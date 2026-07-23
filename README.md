@@ -155,4 +155,4 @@ de lectura que a propósito no otorgamos.
 Deploy continuo en Vercel desde `main`. Configurar en Vercel las mismas variables de
 entorno (`VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY`).
 
-URL live: _(pendiente de publicar)_
+URL live: _(https://prueba-tecnica-munoz-opvf-nine.vercel.app/)_
