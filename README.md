@@ -1,22 +1,24 @@
-# Catálogo de Servicios — Muñoz Solutions
+# Catálogo de Productos — Muñoz Solutions
 
-Cliente web que presenta los servicios de seguridad electrónica de **Muñoz Solutions**
-(Nuevo Laredo, México) como un catálogo navegable, con buscador, filtros por categoría,
-detalle en modal y un formulario de consulta que persiste los prospectos en Supabase.
+Cliente web que presenta un catálogo de productos navegable para **Muñoz Solutions**,
+con buscador, filtros por categoría, detalle en modal y un formulario de consulta que
+persiste los prospectos en Supabase. Incluye un panel de administración con login para
+revisar las consultas recibidas.
 
-Los datos del catálogo provienen de [Fake Store API](https://fakestoreapi.com/products),
-**mapeados** a servicios de seguridad. Es una prueba técnica que funciona además como
+Los datos provienen de [Fake Store API](https://fakestoreapi.com/products) (productos
+reales: ropa, joyería y electrónica). Es una prueba técnica que funciona además como
 prototipo real adoptable por el cliente.
 
 ## Descripción
 
-- **Listado** de servicios obtenidos de una API pública y mapeados al dominio de Muñoz.
+- **Listado** de productos obtenidos de una API pública.
 - **Buscador** por nombre o descripción (case-insensitive, con _debounce_ de 300 ms).
 - **Filtro** por categoría con selección múltiple y contador de resultados.
 - **Estados de petición** explícitos: _loading_ (skeletons), _error_ (con reintento),
   _empty_ (sin resultados) y _success_.
-- **Modal de detalle** con imagen, descripción, calificación, costo estimado y un
+- **Modal de detalle** con imagen, descripción, calificación, precio y un
   **formulario de consulta** validado que guarda en Supabase.
+- **Panel de administración** (`/admin`) con login (Supabase Auth) para ver las consultas.
 - **Animaciones** con Framer Motion (entrada _stagger_, _hover_ en cards, modal).
 - **Responsive** mobile-first y accesibilidad básica (ARIA, focus, ESC, alt text).
 
@@ -36,8 +38,8 @@ prototipo real adoptable por el cliente.
    VITE_SUPABASE_ANON_KEY=tu_anon_key
    ```
    > Usa siempre la **anon/public key** (segura para el frontend), nunca la `service_role`.
-   > El proyecto compila y carga aunque falten estas variables; solo el envío del
-   > formulario mostrará un aviso hasta configurarlas.
+   > El proyecto compila y carga aunque falten estas variables; solo el formulario y el
+   > panel mostrarán un aviso hasta configurarlas.
 4. Levantar el entorno de desarrollo:
    ```sh
    npm run dev
@@ -49,10 +51,11 @@ prototipo real adoptable por el cliente.
 ## Configurar Supabase
 
 1. Crear un proyecto en [supabase.com](https://supabase.com).
-2. En **SQL Editor**, ejecutar el esquema de la tabla `consultas` (ver más abajo).
-   Como regla del proyecto, el SQL se corre **manualmente** en el dashboard, nunca
-   con auto-ejecución.
+2. En **SQL Editor**, ejecutar el esquema de la tabla `consultas` y sus políticas (abajo).
+   Como regla del proyecto, el SQL se corre **manualmente** en el dashboard.
 3. Copiar `Project URL` y `anon public key` (Settings → API) al archivo `.env`.
+4. Para el panel admin: en **Authentication → Users** crear un usuario (email + contraseña,
+   con _Auto Confirm_). La política de lectura está restringida a ese email.
 
 ```sql
 create extension if not exists "uuid-ossp";
@@ -73,9 +76,14 @@ create index idx_consultas_estado on consultas(estado);
 
 alter table consultas enable row level security;
 
--- Solo INSERT anónimo: el frontend puede enviar consultas, nunca leerlas.
+-- Cualquiera (anónimo) puede ENVIAR una consulta desde el formulario.
 create policy "Cualquiera puede crear consultas"
   on consultas for insert to anon with check (true);
+
+-- Solo el admin autenticado puede LEER las consultas (panel /admin).
+create policy "Admin puede leer consultas"
+  on consultas for select to authenticated
+  using ( auth.jwt() ->> 'email' = 'admin@munozsolutions.mx' );
 ```
 
 ## Decisiones técnicas
@@ -83,31 +91,30 @@ create policy "Cualquiera puede crear consultas"
 ### ¿Por qué Fake Store API?
 
 El brief pedía consumir una API pública. Entre las opciones (JSONPlaceholder, REST
-Countries, Fake Store), **Fake Store** fue la única con la forma de datos que se mapea
-de forma natural a un catálogo comercial: cada producto tiene `title`, `description`,
-`category`, `price`, `image` y `rating`. Eso permite un **mapeo estratégico** al dominio
-de Muñoz Solutions en lugar de datos genéricos sin contexto:
+Countries, Fake Store), **Fake Store** fue la única con la forma de datos propia de un
+catálogo comercial: cada producto trae `title`, `description`, `category`, `price`,
+`image` y `rating`, lo que permite construir cards, buscador, filtros y detalle sin
+inventar datos. Las categorías se traducen al español, respetando lo que la API
+realmente devuelve:
 
-| Fake Store         | Muñoz Solutions             |
-| ------------------ | --------------------------- |
-| `electronics`      | Sistemas CCTV               |
-| `jewelery`         | Control de Acceso           |
-| `men's clothing`   | Alarmas Residenciales       |
-| `women's clothing` | Mantenimiento y Soporte     |
-| `price`            | Costo estimado del servicio |
-| `rating`           | Calificación / reseñas      |
+| Fake Store         | En la app        |
+| ------------------ | ---------------- |
+| `electronics`      | Electrónica      |
+| `jewelery`         | Joyería          |
+| `men's clothing`   | Ropa de hombre   |
+| `women's clothing` | Ropa de mujer    |
 
-El mapeo vive aislado en [`src/utils/mapService.ts`](src/utils/mapService.ts), así que
-sustituir Fake Store por la API real de Muñoz mañana solo toca ese archivo.
+Ese mapeo vive aislado en [`src/utils/mapService.ts`](src/utils/mapService.ts): cambiar
+Fake Store por la API real del cliente mañana solo toca ese archivo.
 
 ### ¿Por qué TanStack Query?
 
 El requisito clave es el **manejo de estados de la API**. TanStack Query lo resuelve de
 raíz: expone `isLoading`, `isError`, `error`, `data` y `refetch` sin escribir un
 `useEffect` manual, y añade _caching_, deduplicación y reintentos automáticos. El hook
-[`useServices`](src/hooks/useServices.ts) encapsula la query y devuelve los servicios ya
+[`useServices`](src/hooks/useServices.ts) encapsula la query y devuelve los productos ya
 mapeados, dejando a la UI la única tarea de reaccionar a cada estado. La mutación del
-formulario también usa `useMutation`, unificando el patrón de datos en toda la app.
+formulario y la lectura del panel también usan React Query, unificando el patrón.
 
 ### ¿Por qué esta estructura de carpetas?
 
@@ -117,27 +124,31 @@ Separación por responsabilidad para que cada pieza sea sustituible y testeable:
 src/
 ├── components/
 │   ├── servicios/   → UI del catálogo (Card, List, Modal, SearchBar, filtros, estados)
+│   ├── admin/       → LoginForm y ConsultasTable del panel
 │   ├── layout/      → Navbar, Footer, Layout
 │   └── ui/          → primitivos shadcn/ui reutilizables
 ├── hooks/           → useServices (datos) y useDebounce (búsqueda)
-├── lib/             → api.ts (fetch + insert) y supabase.ts (cliente)
-├── utils/           → mapService.ts (mapeo de dominio) y format.ts (formato de costo)
+├── lib/             → api.ts (fetch + insert + listado) y supabase.ts (cliente)
+├── utils/           → mapService.ts (categorías) y format.ts (precio)
 ├── types/           → interfaces TypeScript compartidas
-└── routes/          → páginas (TanStack Router file-based)
+└── routes/          → páginas (TanStack Router file-based): / y /admin
 ```
 
-La regla es: **datos** (`hooks`/`lib`), **transformación de dominio** (`utils`),
-**tipos** (`types`) y **presentación** (`components`) nunca se mezclan.
+La regla es: **datos** (`hooks`/`lib`), **transformación** (`utils`), **tipos** (`types`)
+y **presentación** (`components`) nunca se mezclan.
 
 ### ¿Por qué Supabase para las consultas?
 
 Se necesitaba persistir prospectos sin montar un backend propio. Supabase da una tabla
-Postgres + API REST instantánea. Con **Row Level Security** activado y **una sola
-política de INSERT** para el rol `anon`, el frontend puede _escribir_ consultas pero
-nunca _leer_ las de otros usuarios (no existe política `SELECT`, así que queda bloqueado
-por defecto). Muñoz Solutions revisa los prospectos desde el dashboard de Supabase. Por
-eso el `insert` **no** encadena `.select()`: pedir la fila de vuelta requeriría permiso
-de lectura que a propósito no otorgamos.
+Postgres + API REST instantánea. Con **Row Level Security** activado:
+
+- El rol `anon` (público) **solo puede INSERT**: el formulario envía consultas pero nadie
+  anónimo puede leerlas.
+- El **admin autenticado** tiene una política de SELECT restringida a su email, así que
+  únicamente él ve las consultas desde el panel `/admin`.
+
+Por eso el `insert` del formulario **no** encadena `.select()` (pedir la fila de vuelta
+requeriría permiso de lectura anónimo, que a propósito no existe).
 
 ## Stack
 
@@ -147,7 +158,7 @@ de lectura que a propósito no otorgamos.
 - Tailwind CSS v4 + shadcn/ui
 - Framer Motion (animaciones)
 - React Hook Form + Zod (formulario y validación)
-- Supabase (persistencia de consultas)
+- Supabase (persistencia de consultas + Auth del panel)
 - Vercel (deploy)
 
 ## Deploy
@@ -155,4 +166,4 @@ de lectura que a propósito no otorgamos.
 Deploy continuo en Vercel desde `main`. Configurar en Vercel las mismas variables de
 entorno (`VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY`).
 
-URL live: _(https://prueba-tecnica-munoz-opvf-nine.vercel.app/)_
+URL live: https://prueba-tecnica-munoz-opvf-nine.vercel.app/

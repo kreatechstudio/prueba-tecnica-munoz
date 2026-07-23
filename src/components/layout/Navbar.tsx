@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { ShieldCheck, UserCog } from "lucide-react";
+import { UserCog } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 
@@ -9,9 +9,11 @@ export function Navbar() {
     <header className="sticky top-0 z-40 border-b-2 border-primary bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
       <div className="mx-auto flex max-w-7xl items-center gap-3 px-4 py-3 sm:px-6">
         <Link to="/" className="flex items-center gap-3">
-          <span className="flex size-10 items-center justify-center rounded-md bg-navy text-navy-foreground">
-            <ShieldCheck className="size-6" aria-hidden="true" />
-          </span>
+          <img
+            src="/logo.jpg"
+            alt="Logo de Muñoz Solutions"
+            className="size-10 rounded-full object-cover shadow-sm"
+          />
           <div className="leading-tight">
             <p className="text-base font-bold tracking-tight text-navy">
               MUÑOZ <span className="text-primary">SOLUTIONS</span>
